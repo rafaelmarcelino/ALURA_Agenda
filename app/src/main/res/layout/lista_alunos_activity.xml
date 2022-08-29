@@ -23,7 +23,7 @@
         android:tint="@color/white"/>
 
     <ListView
-        android:id="@+id/activity_main_lv_students"
+        android:id="@+id/lista_alunos_activity_lv_students"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="auto"></ListView>
