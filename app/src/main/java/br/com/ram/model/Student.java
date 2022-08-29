@@ -30,4 +30,9 @@ public class Student {
     public static long getQtyStudents() {
         return qtyStudents;
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }
