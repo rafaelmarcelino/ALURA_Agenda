@@ -14,9 +14,11 @@
         android:theme="@style/Theme.ALURA_Agenda"
         tools:targetApi="31">
         <activity
+            android:name=".LoadDataFromStudent"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.FormStudentActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".ui.activities.StudentsListActivity"
             android:exported="true">
