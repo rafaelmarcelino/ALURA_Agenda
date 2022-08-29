@@ -13,6 +13,7 @@ import br.com.ram.model.Student;
 import br.com.ram.model.StudentDAO;
 
 public class FormStudentActivity extends AppCompatActivity {
+    //Creating variables of views
     private EditText editTextName;
     private EditText editTextPhone;
     private EditText editTextEmail;

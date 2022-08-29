@@ -3,8 +3,10 @@ package br.com.ram.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,6 +68,16 @@ public class StudentsListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
+            }
+        });
+
+        //List view
+        lv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(StudentsListActivity.this,LoadDataFromStudent.class);
+                intent.putExtra("ID",id);
+                startActivity(intent);
             }
         });
 
