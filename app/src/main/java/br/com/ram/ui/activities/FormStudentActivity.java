@@ -2,6 +2,7 @@ package br.com.ram.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import br.com.ram.R;
 import br.com.ram.model.Student;
+import br.com.ram.model.StudentDAO;
 
 public class FormStudentActivity extends AppCompatActivity {
 
@@ -32,19 +34,21 @@ public class FormStudentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Getting data of the fields
-                String name = editTextName.getText().toString();
-                String phone = editTextPhone.getText().toString();
-                String email = editTextEmail.getText().toString();
-                //Creating new student at list
-                Student student = new Student(name, phone, email);
+                final String name = editTextName.getText().toString();
+                final String phone = editTextPhone.getText().toString();
+                final String email = editTextEmail.getText().toString();
+                //Creating new student
+                final Student student = new Student(name, phone, email);
+                //Creating the tool to save student
+                final StudentDAO studentDAO = new StudentDAO();
+                //Saving student in a list
+                studentDAO.saveStudent(student);
+                //Showing how many students we have created
+                Toast.makeText(FormStudentActivity.this, "Quantity of students =" +
+                        Student.getQtyStudents(), Toast.LENGTH_SHORT).show();
+                //Returning to student's list activity
+                startActivity(new Intent(FormStudentActivity.this,StudentsListActivity.class));
 
-                Toast.makeText(FormStudentActivity.this, student.getName()
-                        + " - "
-                        + student.getPhone()
-                        + " - "
-                        + student.getEmail()
-                        + " - "
-                        + Student.getQtyStudents(), Toast.LENGTH_SHORT).show();
             }
         });
 
