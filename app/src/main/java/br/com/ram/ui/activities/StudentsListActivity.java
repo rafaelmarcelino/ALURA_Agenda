@@ -1,4 +1,4 @@
-package br.com.ram;
+package br.com.ram.ui.activities;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ListaDeAlunosActivity extends AppCompatActivity {
+import br.com.ram.R;
+
+public class StudentsListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
