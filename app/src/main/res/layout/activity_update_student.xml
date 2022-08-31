@@ -5,35 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activities.LoadDataFromStudentActivity">
+    tools:context=".ui.activities.UpdateStudentActivity">
 
-    <TextView
-        android:id="@+id/activity_load_data_from_student_tv_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name"
-        android:padding="8dp"
-        android:layout_margin="8dp"/>
-    <TextView
-        android:id="@+id/activity_load_data_from_student_tv_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone"
-        android:padding="8dp"
-        android:layout_margin="8dp"/>
-    <TextView
-        android:id="@+id/activity_load_data_from_student_tv_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:padding="8dp"
-        android:layout_margin="8dp"/>
-
-    <Button
-        android:id="@+id/activity_load_data_from_student_bt_back"
+    <EditText
+        android:id="@+id/activity_update_student_et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="Back"/>
+        android:inputType="textCapWords"
+        android:hint="Name"/>
+
+    <EditText
+        android:id="@+id/activity_update_student_et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:inputType="phone"
+        android:hint="Phone"/>
+
+    <EditText
+        android:id="@+id/activity_update_student_et_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:inputType="textEmailAddress"
+        android:hint="Email"/>
+    <Button
+        android:id="@+id/activity_update_student_bt_update_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Update and Exit"/>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

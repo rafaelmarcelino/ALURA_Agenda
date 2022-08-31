@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +28,7 @@ public class StudentsListActivity extends AppCompatActivity {
         //Setting the title os app bar
         setTitle("Students list");
         //Call a view in this activity
-        setContentView(R.layout.lista_alunos_activity);
+        setContentView(R.layout.activity_students_list);
 
         //Init variables
         initVariables();
@@ -72,15 +71,23 @@ public class StudentsListActivity extends AppCompatActivity {
         });
 
         //List view
+        lv_students.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(StudentsListActivity.this, UpdateStudentActivity.class);
+                intent.putExtra("ID",id);
+                startActivity(intent);
+                return false;
+            }
+        });
+
         lv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(StudentsListActivity.this,LoadDataFromStudent.class);
+                Intent intent = new Intent(StudentsListActivity.this, LoadDataFromStudentActivity.class);
                 intent.putExtra("ID",id);
                 startActivity(intent);
             }
         });
-
-
     }
 }

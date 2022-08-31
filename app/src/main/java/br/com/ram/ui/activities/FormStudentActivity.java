@@ -56,8 +56,8 @@ public class FormStudentActivity extends AppCompatActivity {
         studentDAO.saveStudent(student);
 
         //Showing how many students we have created
-        Toast.makeText(FormStudentActivity.this, "Quantity of students =" +
-                Student.getQtyStudents(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(FormStudentActivity.this, "Quantity of students = " +
+                studentDAO.getStudents().size(), Toast.LENGTH_SHORT).show();
 
 
     }
