@@ -20,7 +20,7 @@
         android:contentDescription="@string/activity_main_fab_add_students"
         android:focusable="true"
         android:src="@drawable/ic_action_add_student"
-        android:tint="@color/white"/>
+        app:tint = "@color/white"/>
 
     <ListView
         android:id="@+id/activity_students_list_lv_students"
