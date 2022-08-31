@@ -4,11 +4,9 @@ public class Student {
     private String name;
     private String phone;
     private String email;
-    private  static long qtyStudents;
 
     //Constructor
     public Student(String name, String phone, String email) {
-        qtyStudents ++;
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -25,10 +23,6 @@ public class Student {
 
     public String getEmail() {
         return email;
-    }
-
-    public static long getQtyStudents() {
-        return qtyStudents;
     }
 
     @Override

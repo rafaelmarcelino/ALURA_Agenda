@@ -12,6 +12,10 @@ public class StudentDAO {
         students.add(student);
     }
 
+    public void updateStudent (int position, Student  student){
+        students.set(position,student);
+    }
+
     public List<Student> getStudents(){
         return new ArrayList<>(students);
     }

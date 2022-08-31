@@ -83,7 +83,6 @@ public class UpdateStudentActivity extends AppCompatActivity {
         }
 
     }
-
     private void callListenersOfViews(){
         //Button
         buttonUpdateAndExit.setOnClickListener(new View.OnClickListener() {

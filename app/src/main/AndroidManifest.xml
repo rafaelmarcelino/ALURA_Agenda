@@ -14,11 +14,14 @@
         android:theme="@style/Theme.ALURA_Agenda"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.LoadDataFromStudent"
+            android:name=".ui.activities.UpdateStudentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.LoadDataFromStudentActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.FormStudentActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.activities.StudentsListActivity"
             android:exported="true">

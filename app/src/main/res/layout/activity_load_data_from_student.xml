@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activities.LoadDataFromStudent">
+    tools:context=".ui.activities.LoadDataFromStudentActivity">
 
     <TextView
         android:id="@+id/activity_load_data_from_student_tv_name"

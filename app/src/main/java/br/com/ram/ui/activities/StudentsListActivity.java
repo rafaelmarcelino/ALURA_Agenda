@@ -71,14 +71,6 @@ public class StudentsListActivity extends AppCompatActivity {
         });
 
         //List view
-        lv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(StudentsListActivity.this, LoadDataFromStudentActivity.class);
-                intent.putExtra("ID",id);
-                startActivity(intent);
-            }
-        });
         lv_students.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -86,6 +78,15 @@ public class StudentsListActivity extends AppCompatActivity {
                 intent.putExtra("ID",id);
                 startActivity(intent);
                 return false;
+            }
+        });
+
+        lv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(StudentsListActivity.this, LoadDataFromStudentActivity.class);
+                intent.putExtra("ID",id);
+                startActivity(intent);
             }
         });
     }
