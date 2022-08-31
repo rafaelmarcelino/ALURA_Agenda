@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ALURA_Agenda</string>
+    <string name="activity_main_fab_add_students">Add Students</string>
+</resources>
