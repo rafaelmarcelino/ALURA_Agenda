@@ -15,7 +15,7 @@ import br.com.ram.R;
 import br.com.ram.model.Student;
 import br.com.ram.model.StudentDAO;
 
-public class LoadDataFromStudent extends AppCompatActivity {
+public class LoadDataFromStudentActivity extends AppCompatActivity {
     //Creating variables of views
     TextView textViewName;
     TextView textViewPhone;
