@@ -12,8 +12,8 @@ public class StudentDAO {
         students.add(student);
     }
 
-    public void updateStudent (int position, Student  student){
-        students.set(position,student);
+    public void updateStudent (long id, Student student){
+        students.set((int) id,student);
     }
 
     public List<Student> getStudents(){
