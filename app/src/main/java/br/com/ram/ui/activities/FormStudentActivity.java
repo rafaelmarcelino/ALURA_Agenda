@@ -1,6 +1,7 @@
 package br.com.ram.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +33,6 @@ public class FormStudentActivity extends AppCompatActivity {
         callListenersOfViews();
     }
 
-
     //Methods
     private void initVariables() {
         editTextName = findViewById(R.id.activity_form_student_et_name);
@@ -54,12 +54,6 @@ public class FormStudentActivity extends AppCompatActivity {
 
         //Saving student in a list
         studentDAO.saveStudent(student);
-
-        //Showing how many students we have created
-        Toast.makeText(FormStudentActivity.this, "Quantity of students = " +
-                studentDAO.getStudents().size(), Toast.LENGTH_SHORT).show();
-
-
     }
     private void callListenersOfViews(){
         //Button
