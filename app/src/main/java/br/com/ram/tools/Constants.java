@@ -1,4 +1,4 @@
-package br.com.ram;
+package br.com.ram.tools;
 
 public abstract class Constants {
 
