@@ -1,13 +1,12 @@
 package br.com.ram.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
@@ -48,23 +47,19 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
 
     }
     private void loadDataFromRequiredStudent() {
-        //Get Id of student
-        long id = intent.getLongExtra("ID", -1);
-        //Check if id is valid
-        if (id > -1) {
-            fillDataOfStudentWithId(id);
-        } else {
-            Toast.makeText(this, "ID is not valid", Toast.LENGTH_SHORT).show();
-        }
+        //Get student to be show
+        final Student student = (Student) intent.getSerializableExtra(getString(R.string.KEY_STUDENT));
+        //Fill data to be updated
+        fillDataOfStudentWithId(student);
     }
-    private void fillDataOfStudentWithId(long id) {
+    private void fillDataOfStudentWithId(Student student) {
         //Get data from buffer of students
         final StudentDAO studentDAO = new StudentDAO();
         final List<Student> students = studentDAO.getStudents();
         //Fill the fields
-        textViewName.setText(students.get(Integer.parseInt(Long.toString(id))).getName());
-        textViewPhone.setText(students.get(Integer.parseInt(Long.toString(id))).getPhone());
-        textViewEmail.setText(students.get(Integer.parseInt(Long.toString(id))).getEmail());
+        textViewName.setText(student.getName());
+        textViewPhone.setText(student.getPhone());
+        textViewEmail.setText(student.getEmail());
     }
     private void callListenersOfViews() {
         //Button
