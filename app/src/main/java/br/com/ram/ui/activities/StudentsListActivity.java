@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import br.com.ram.tools.Constants;
 import br.com.ram.R;
 import br.com.ram.model.Student;
 import br.com.ram.model.StudentDAO;
@@ -43,7 +45,10 @@ public class StudentsListActivity extends AppCompatActivity {
         final List<Student> allStudentsStored = getAllStudentsStored();
         //Set adapters to show all students stored
         setAdapters(allStudentsStored);
-
+        //Showing how many students we have created if greater than 0
+        if (allStudentsStored.size() > Constants.EMPTY){
+            Toast.makeText(this, "Quantity of students = "+ allStudentsStored.size(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     //Methods
@@ -74,8 +79,12 @@ public class StudentsListActivity extends AppCompatActivity {
         lv_students.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //Getting a student to send to update
+                final StudentDAO studentDAO = new StudentDAO();
+                final Student student = studentDAO.getStudents().get((int) id);
                 Intent intent = new Intent(StudentsListActivity.this, UpdateStudentActivity.class);
-                intent.putExtra("ID",id);
+                intent.putExtra(getString(R.string.KEY_STUDENT),student);
+                intent.putExtra(getString(R.string.KEY_ID_STUDENT),id);
                 startActivity(intent);
                 return false;
             }
@@ -84,8 +93,11 @@ public class StudentsListActivity extends AppCompatActivity {
         lv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Getting a student to send to update
+                final StudentDAO studentDAO = new StudentDAO();
+                final Student student = studentDAO.getStudents().get((int) id);
                 Intent intent = new Intent(StudentsListActivity.this, LoadDataFromStudentActivity.class);
-                intent.putExtra("ID",id);
+                intent.putExtra(getString(R.string.KEY_STUDENT),student);
                 startActivity(intent);
             }
         });
