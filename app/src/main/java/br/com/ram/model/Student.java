@@ -1,6 +1,8 @@
 package br.com.ram.model;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
     private String name;
     private String phone;
     private String email;
