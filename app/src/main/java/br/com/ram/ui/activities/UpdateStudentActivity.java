@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import br.com.ram.tools.Constants;
 import br.com.ram.R;
 import br.com.ram.model.Student;
 import br.com.ram.model.StudentDAO;
@@ -48,19 +49,15 @@ public class UpdateStudentActivity extends AppCompatActivity {
         intent = getIntent();
     }
     private void loadDataToUpdateStudent(){
-        //Creating the tool to save student
-        StudentDAO studentDAO = new StudentDAO();
-        //Collecting ID from intent
-        long id = intent.getLongExtra("ID",-1);
-        //Validation
-        if (id > -1){
-            //Creating a student to be updated
-            Student student = studentDAO.getStudents().get(Integer.parseInt(Long.toString(id)));
+        //Validation to collect student
+        if (intent.hasExtra(getString(R.string.KEY_STUDENT))){
+            final Student student = (Student) intent.getSerializableExtra(getString(R.string.KEY_STUDENT));
             //Fill the fields with data of this student
             editTextName.setText(student.getName());
             editTextPhone.setText(student.getPhone());
             editTextEmail.setText(student.getEmail());
-
+        }else{
+            Toast.makeText(this, "No student to load data", Toast.LENGTH_SHORT).show();
         }
     }
     private void handleDataToUpdateStudent(){
@@ -68,20 +65,24 @@ public class UpdateStudentActivity extends AppCompatActivity {
         String name = editTextName.getText().toString();
         String phone = editTextPhone.getText().toString();
         String email = editTextEmail.getText().toString();
-        long id = intent.getLongExtra("ID", - 1);
+        //Collecting new data to student and updating
+        final Student student = new Student(name, phone, email);
 
         //Validation
-        if (id > -1){
-            //Creating new student
-            Student student = new Student(name, phone, email);
-            //Creating the tool to update student
-            StudentDAO studentDAO = new StudentDAO();
-            //Updating student in a list
-            studentDAO.updateStudent(Integer.parseInt(Long.toString(id)), student);
+        if (intent.hasExtra(getString(R.string.KEY_ID_STUDENT))) {
+            if (intent.getLongExtra(getString(R.string.KEY_ID_STUDENT), Constants.DEFAULT_ERROR_INDEX) > Constants.WRONG_INDEX) {
+                //Getting ID of student
+                long id = intent.getLongExtra(getString(R.string.KEY_ID_STUDENT), Constants.START_INDEX);
+                //Creating the tool to update student
+                StudentDAO studentDAO = new StudentDAO();
+                //Updating student in a list
+                studentDAO.updateStudent(id, student);
+            } else {
+                Toast.makeText(this, "WRONG ID", Toast.LENGTH_SHORT).show();
+            }
         }else{
-            Toast.makeText(this, "ID is not valid", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No ID to load data", Toast.LENGTH_SHORT).show();
         }
-
     }
     private void callListenersOfViews(){
         //Button
