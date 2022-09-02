@@ -1,9 +1,9 @@
 package br.com.ram.tools;
 
-public abstract class Constants {
+public interface Constants {
 
-    public static final int START_INDEX = 0;
-    public static final int EMPTY = 0;
-    public static final int DEFAULT_ERROR_INDEX = -1;
-    public static final int WRONG_INDEX = -1;
+    int START_INDEX = 0;
+    int EMPTY = 0;
+    int DEFAULT_ERROR_INDEX = -1;
+    int WRONG_INDEX = -1;
 }

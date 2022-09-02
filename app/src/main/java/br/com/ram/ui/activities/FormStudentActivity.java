@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.ram.R;
@@ -38,21 +39,6 @@ public class FormStudentActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.activity_form_student_et_email);
         buttonSave = findViewById(R.id.activity_form_student_bt_save);
     }
-    private void handleDataToAddNewStudent(){
-        //Getting data of the fields
-        String name = editTextName.getText().toString();
-        String phone = editTextPhone.getText().toString();
-        String email = editTextEmail.getText().toString();
-
-        //Creating new student
-        Student student = new Student(name, phone, email);
-
-        //Creating the tool to save student
-        StudentDAO studentDAO = new StudentDAO();
-
-        //Saving student in a list
-        studentDAO.saveStudent(student);
-    }
     private void callListenersOfViews(){
         //Button
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -67,4 +53,27 @@ public class FormStudentActivity extends AppCompatActivity {
         });
 
     }
+    private void handleDataToAddNewStudent(){
+        //Getting data of the fields
+        Student student = getStudentDataFilled();
+        //Saving student in database
+        saveStudentInDataBase(student);
+    }
+    private void saveStudentInDataBase(Student student) {
+        //Creating the tool to save student
+        StudentDAO studentDAO = new StudentDAO();
+        //Saving student in a list
+        studentDAO.saveStudent(student);
+    }
+    @NonNull
+    private Student getStudentDataFilled() {
+        String name = editTextName.getText().toString();
+        String phone = editTextPhone.getText().toString();
+        String email = editTextEmail.getText().toString();
+
+        //Creating new student
+        Student student = new Student(name, phone, email);
+        return student;
+    }
+
 }

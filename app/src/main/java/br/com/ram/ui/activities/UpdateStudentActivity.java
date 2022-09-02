@@ -1,5 +1,6 @@
 package br.com.ram.ui.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -48,6 +49,20 @@ public class UpdateStudentActivity extends AppCompatActivity {
 
         intent = getIntent();
     }
+    private void callListenersOfViews(){
+        //Button
+        buttonUpdateAndExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Handle data of form
+                handleDataToUpdateStudent();
+                //Returning to activity that called this
+                finish();
+
+            }
+        });
+
+    }
     private void loadDataToUpdateStudent(){
         //Validation to collect student
         if (intent.hasExtra(getString(R.string.KEY_STUDENT))){
@@ -62,21 +77,14 @@ public class UpdateStudentActivity extends AppCompatActivity {
     }
     private void handleDataToUpdateStudent(){
         //Getting data of the fields
-        String name = editTextName.getText().toString();
-        String phone = editTextPhone.getText().toString();
-        String email = editTextEmail.getText().toString();
-        //Collecting new data to student and updating
-        final Student student = new Student(name, phone, email);
-
+        final Student student = getNewDataToUpdateStudent();
         //Validation
         if (intent.hasExtra(getString(R.string.KEY_ID_STUDENT))) {
             if (intent.getLongExtra(getString(R.string.KEY_ID_STUDENT), Constants.DEFAULT_ERROR_INDEX) > Constants.WRONG_INDEX) {
                 //Getting ID of student
                 long id = intent.getLongExtra(getString(R.string.KEY_ID_STUDENT), Constants.START_INDEX);
-                //Creating the tool to update student
-                StudentDAO studentDAO = new StudentDAO();
-                //Updating student in a list
-                studentDAO.updateStudent(id, student);
+                //Updating student with new data
+                updateStudentWithNewData(student, id);
             } else {
                 Toast.makeText(this, "WRONG ID", Toast.LENGTH_SHORT).show();
             }
@@ -84,18 +92,19 @@ public class UpdateStudentActivity extends AppCompatActivity {
             Toast.makeText(this, "No ID to load data", Toast.LENGTH_SHORT).show();
         }
     }
-    private void callListenersOfViews(){
-        //Button
-        buttonUpdateAndExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Handle data of form
-                handleDataToUpdateStudent();
-                //Returning to activity that called this
-                finish();
-
-            }
-        });
-
+    private void updateStudentWithNewData(Student student, long id) {
+        //Creating the tool to update student
+        StudentDAO studentDAO = new StudentDAO();
+        //Updating student in a list
+        studentDAO.updateStudent(id, student);
+    }
+    @NonNull
+    private Student getNewDataToUpdateStudent() {
+        String name = editTextName.getText().toString();
+        String phone = editTextPhone.getText().toString();
+        String email = editTextEmail.getText().toString();
+        //Collecting new data to student and updating
+        final Student student = new Student(name, phone, email);
+        return student;
     }
 }

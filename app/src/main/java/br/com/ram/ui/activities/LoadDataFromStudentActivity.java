@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,21 +47,6 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
         intent = getIntent();
 
     }
-    private void loadDataFromRequiredStudent() {
-        //Get student to be show
-        final Student student = (Student) intent.getSerializableExtra(getString(R.string.KEY_STUDENT));
-        //Fill data to be updated
-        fillDataOfStudentWithId(student);
-    }
-    private void fillDataOfStudentWithId(Student student) {
-        //Get data from buffer of students
-        final StudentDAO studentDAO = new StudentDAO();
-        final List<Student> students = studentDAO.getStudents();
-        //Fill the fields
-        textViewName.setText(student.getName());
-        textViewPhone.setText(student.getPhone());
-        textViewEmail.setText(student.getEmail());
-    }
     private void callListenersOfViews() {
         //Button
         buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -70,5 +56,26 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void loadDataFromRequiredStudent() {
+        //Get student to be show
+        if (intent.hasExtra(getString(R.string.KEY_STUDENT))) {
+            //Collect student sent from activity
+            final Student student = getStudentFromIntent();
+            //Fill data to be updated
+            fillDataOfStudentReceived(student);
+        } else {
+            Toast.makeText(this, "No student received from last activity", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+    private Student getStudentFromIntent() {
+        final Student student = (Student) intent.getSerializableExtra(getString(R.string.KEY_STUDENT));
+        return student;
+    }
+    private void fillDataOfStudentReceived(Student student) {
+        //Fill the fields
+        textViewName.setText(student.getName());
+        textViewPhone.setText(student.getPhone());
+        textViewEmail.setText(student.getEmail());
+    }
 }

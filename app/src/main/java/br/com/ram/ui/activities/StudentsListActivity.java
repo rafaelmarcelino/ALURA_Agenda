@@ -56,6 +56,35 @@ public class StudentsListActivity extends AppCompatActivity {
         fabAddStudent = findViewById(R.id.activity_students_list_fab_add_students);
         lv_students = findViewById(R.id.activity_students_list_lv_students);
     }
+    private void callListenersOfViews(){
+        //Floating action button
+        fabAddStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivityToFillDataOfStudent();
+            }
+        });
+
+        //List view
+        lv_students.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //Getting a student to send to update
+                final Student student = (Student) parent.getItemAtPosition(position);
+                openActivityToUpdateDataOfStudent(id, student);
+                return true;
+            }
+        });
+
+        lv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Getting a student to send to update
+                final Student student = (Student) parent.getItemAtPosition(position);
+                openActivityToShowDataOfStudent(student);
+            }
+        });
+    }
     private List<Student> getAllStudentsStored(){
         //Creating students
         return new StudentDAO().getStudents();
@@ -66,40 +95,18 @@ public class StudentsListActivity extends AppCompatActivity {
         //Linking the adapter in list view
         lv_students.setAdapter(adapter_lv_students);
     }
-    private void callListenersOfViews(){
-        //Floating action button
-        fabAddStudent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
-            }
-        });
-
-        //List view
-        lv_students.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                //Getting a student to send to update
-                final StudentDAO studentDAO = new StudentDAO();
-                final Student student = studentDAO.getStudents().get((int) id);
-                Intent intent = new Intent(StudentsListActivity.this, UpdateStudentActivity.class);
-                intent.putExtra(getString(R.string.KEY_STUDENT),student);
-                intent.putExtra(getString(R.string.KEY_ID_STUDENT),id);
-                startActivity(intent);
-                return true;
-            }
-        });
-
-        lv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Getting a student to send to update
-                final StudentDAO studentDAO = new StudentDAO();
-                final Student student = studentDAO.getStudents().get((int) id);
-                Intent intent = new Intent(StudentsListActivity.this, LoadDataFromStudentActivity.class);
-                intent.putExtra(getString(R.string.KEY_STUDENT),student);
-                startActivity(intent);
-            }
-        });
+    private void openActivityToFillDataOfStudent() {
+        startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
+    }
+    private void openActivityToUpdateDataOfStudent(long id, Student student) {
+        Intent intent = new Intent(StudentsListActivity.this, UpdateStudentActivity.class);
+        intent.putExtra(getString(R.string.KEY_STUDENT), student);
+        intent.putExtra(getString(R.string.KEY_ID_STUDENT), id);
+        startActivity(intent);
+    }
+    private void openActivityToShowDataOfStudent(Student student) {
+        Intent intent = new Intent(StudentsListActivity.this, LoadDataFromStudentActivity.class);
+        intent.putExtra(getString(R.string.KEY_STUDENT), student);
+        startActivity(intent);
     }
 }
