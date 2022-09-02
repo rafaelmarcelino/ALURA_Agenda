@@ -86,7 +86,7 @@ public class StudentsListActivity extends AppCompatActivity {
                 intent.putExtra(getString(R.string.KEY_STUDENT),student);
                 intent.putExtra(getString(R.string.KEY_ID_STUDENT),id);
                 startActivity(intent);
-                return false;
+                return true;
             }
         });
 
