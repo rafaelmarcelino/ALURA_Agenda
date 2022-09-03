@@ -12,12 +12,16 @@ public class StudentDAO {
         students.add(student);
     }
 
-    public void updateStudent (long id, Student student){
-        students.set((int) id,student);
+    public void updateStudent ( Student studentToBeUpdated){
+        students.set(studentToBeUpdated.getPosition(),studentToBeUpdated);
     }
 
     public List<Student> getStudents(){
         return new ArrayList<>(students);
+    }
+
+    public Student getStudentByPosition (int position){
+        return students.get(position);
     }
 
 }

@@ -71,7 +71,7 @@ public class StudentsListActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 //Getting a student to send to update
                 final Student student = (Student) parent.getItemAtPosition(position);
-                openActivityToUpdateDataOfStudent(id, student);
+                openActivityToUpdateDataOfStudent(student);
                 return true;
             }
         });
@@ -98,10 +98,9 @@ public class StudentsListActivity extends AppCompatActivity {
     private void openActivityToFillDataOfStudent() {
         startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
     }
-    private void openActivityToUpdateDataOfStudent(long id, Student student) {
+    private void openActivityToUpdateDataOfStudent(Student student) {
         Intent intent = new Intent(StudentsListActivity.this, UpdateStudentActivity.class);
         intent.putExtra(getString(R.string.KEY_STUDENT), student);
-        intent.putExtra(getString(R.string.KEY_ID_STUDENT), id);
         startActivity(intent);
     }
     private void openActivityToShowDataOfStudent(Student student) {

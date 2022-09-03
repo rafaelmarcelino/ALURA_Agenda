@@ -8,6 +8,13 @@
     tools:context=".ui.activities.LoadDataFromStudentActivity">
 
     <TextView
+        android:id="@+id/activity_load_data_from_student_tv_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID"
+        android:padding="8dp"
+        android:layout_margin="8dp"/>
+    <TextView
         android:id="@+id/activity_load_data_from_student_tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

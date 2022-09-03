@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import br.com.ram.tools.Constants;
 import br.com.ram.R;
 import br.com.ram.model.Student;
 import br.com.ram.model.StudentDAO;
@@ -21,6 +20,8 @@ public class UpdateStudentActivity extends AppCompatActivity {
     private EditText editTextPhone;
     private EditText editTextEmail;
     private Button buttonUpdateAndExit;
+    //Creating the tool to handle student
+    StudentDAO studentDAO;
 
     Intent intent;
     @Override
@@ -46,7 +47,7 @@ public class UpdateStudentActivity extends AppCompatActivity {
         editTextPhone = findViewById(R.id.activity_update_student_et_phone);
         editTextEmail = findViewById(R.id.activity_update_student_et_email);
         buttonUpdateAndExit = findViewById(R.id.activity_update_student_bt_update_exit);
-
+        studentDAO = new StudentDAO();
         intent = getIntent();
     }
     private void callListenersOfViews(){
@@ -65,46 +66,39 @@ public class UpdateStudentActivity extends AppCompatActivity {
     }
     private void loadDataToUpdateStudent(){
         //Validation to collect student
+        loadFieldsWithDataOfStudent(getStudentFromIntent());
+    }
+    private Student getStudentFromIntent() {
+        //Validation of intent
         if (intent.hasExtra(getString(R.string.KEY_STUDENT))){
-            final Student student = (Student) intent.getSerializableExtra(getString(R.string.KEY_STUDENT));
-            //Fill the fields with data of this student
-            editTextName.setText(student.getName());
-            editTextPhone.setText(student.getPhone());
-            editTextEmail.setText(student.getEmail());
+            return (Student) intent.getSerializableExtra(getString(R.string.KEY_STUDENT));
         }else{
             Toast.makeText(this, "No student to load data", Toast.LENGTH_SHORT).show();
         }
+        return null;
+    }
+    private void loadFieldsWithDataOfStudent(Student student) {
+        //Fill the fields with data of this student
+        editTextName.setText(student.getName());
+        editTextPhone.setText(student.getPhone());
+        editTextEmail.setText(student.getEmail());
     }
     private void handleDataToUpdateStudent(){
-        //Getting data of the fields
-        final Student student = getNewDataToUpdateStudent();
-        //Validation
-        if (intent.hasExtra(getString(R.string.KEY_ID_STUDENT))) {
-            if (intent.getLongExtra(getString(R.string.KEY_ID_STUDENT), Constants.DEFAULT_ERROR_INDEX) > Constants.WRONG_INDEX) {
-                //Getting ID of student
-                long id = intent.getLongExtra(getString(R.string.KEY_ID_STUDENT), Constants.START_INDEX);
-                //Updating student with new data
-                updateStudentWithNewData(student, id);
-            } else {
-                Toast.makeText(this, "WRONG ID", Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            Toast.makeText(this, "No ID to load data", Toast.LENGTH_SHORT).show();
-        }
+        //Update student with new data filled
+        updateStudentWithNewData(getStudentWithDataUpdated());
     }
-    private void updateStudentWithNewData(Student student, long id) {
-        //Creating the tool to update student
-        StudentDAO studentDAO = new StudentDAO();
+    private void updateStudentWithNewData(Student student) {
         //Updating student in a list
-        studentDAO.updateStudent(id, student);
+        studentDAO.updateStudent(student);
     }
     @NonNull
-    private Student getNewDataToUpdateStudent() {
-        String name = editTextName.getText().toString();
-        String phone = editTextPhone.getText().toString();
-        String email = editTextEmail.getText().toString();
-        //Collecting new data to student and updating
-        final Student student = new Student(name, phone, email);
+    private Student getStudentWithDataUpdated() {
+        //Collecting student from intent
+        final Student student = getStudentFromIntent();
+        //Update student with new data filled
+        student.setName(editTextName.getText().toString());
+        student.setPhone(editTextPhone.getText().toString());
+        student.setEmail(editTextEmail.getText().toString());
         return student;
     }
 }
