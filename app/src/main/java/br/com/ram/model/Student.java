@@ -17,8 +17,6 @@ public class Student implements Serializable {
     }
 
     //Getters
-
-
     public long getId() {
         return id;
     }
