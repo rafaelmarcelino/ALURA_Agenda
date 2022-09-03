@@ -2,17 +2,21 @@ package br.com.ram.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.PipedOutputStream;
 import java.util.List;
 
 import br.com.ram.tools.Constants;
@@ -53,15 +57,55 @@ public class StudentsListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(Constants.CTX_MENU_UPDATE_STUDENT);
+        menu.add(Constants.CTX_MENU_REMOVE_STUDENT);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        //Get feedback from adapter data
+        final AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        //Check action to be performed
+        if (item.getTitle() == Constants.CTX_MENU_UPDATE_STUDENT){
+            //Update action
+            startUpdateStudentAction(menuInfo.position);
+        }else if(item.getTitle() == Constants.CTX_MENU_REMOVE_STUDENT){
+            //Remove action
+            startRemoveStudentAction(menuInfo.position);
+        }
+        return super.onContextItemSelected(item);
+
+    }
+
+    private void startRemoveStudentAction(int position) {
+        //Getting a student to send to update
+        final Student student = studentDAO.getStudentByPosition(position);
+        studentDAO.removeStudent(student);
+        //Updating data to refresh list view
+        updatingDataOfAdapter(studentDAO.getStudents());
+    }
+
+    private void startUpdateStudentAction(int position) {
+        //Getting a student to send to update
+        final Student student = studentDAO.getStudentByPosition(position);
+        openActivityToUpdateDataOfStudent(student,position);
+    }
+
     //Methods
     private void initVariables() {
+        //Init views
         fabAddStudent = findViewById(R.id.activity_students_list_fab_add_students);
         lv_students = findViewById(R.id.activity_students_list_lv_students);
 
         adapter_lv_students = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         //Linking the adapter in list view
         lv_students.setAdapter(adapter_lv_students);
-
+        //Register a context menu to this list view
+        registerForContextMenu(lv_students);
+        //Init tool to handle student
         studentDAO = new StudentDAO();
     }
     private void callListenersOfViews(){
@@ -70,17 +114,6 @@ public class StudentsListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openActivityToFillDataOfStudent();
-            }
-        });
-
-        //List view
-        lv_students.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                //Getting a student to send to update
-                final Student student = (Student) parent.getItemAtPosition(position);
-                openActivityToUpdateDataOfStudent(student);
-                return true;
             }
         });
 
@@ -98,7 +131,7 @@ public class StudentsListActivity extends AppCompatActivity {
         return new StudentDAO().getStudents();
     }
     private void updatingDataOfAdapter(List<Student>students){
-        //Clear previos data of adapter
+        //Clear previous data of adapter
         adapter_lv_students.clear();
         //Updating data of adapter
         adapter_lv_students.addAll(students);
@@ -106,9 +139,10 @@ public class StudentsListActivity extends AppCompatActivity {
     private void openActivityToFillDataOfStudent() {
         startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
     }
-    private void openActivityToUpdateDataOfStudent(Student student) {
-        Intent intent = new Intent(StudentsListActivity.this, UpdateStudentActivity.class);
+    private void openActivityToUpdateDataOfStudent(Student student, int positionToBeUpdated) {
+        Intent intent = new Intent(StudentsListActivity.this, FormStudentActivity.class);
         intent.putExtra(getString(R.string.KEY_STUDENT), student);
+        intent.putExtra(getString(R.string.KEY_POSITION_STUDENT),positionToBeUpdated);
         startActivity(intent);
     }
     private void openActivityToShowDataOfStudent(Student student) {
