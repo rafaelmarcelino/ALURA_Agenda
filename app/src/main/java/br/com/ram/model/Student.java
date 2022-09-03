@@ -3,7 +3,9 @@ package br.com.ram.model;
 import java.io.Serializable;
 
 public class Student implements Serializable {
-    private long id;
+    private static long id = 0;
+    private long idStudent = 0;
+    private int position = 0;
     private String name;
     private String phone;
     private String email;
@@ -11,14 +13,19 @@ public class Student implements Serializable {
     //Constructor
     public Student(String name, String phone, String email) {
         this.id ++;
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
+        this.idStudent = getId();
+        setName(name);
+        setPhone(phone);
+        setEmail(email);
     }
 
     //Getters
-    public long getId() {
+    private long getId() {
         return id;
+    }
+
+    public long getIdStudent() {
+        return idStudent;
     }
 
     public String getName() {
@@ -31,6 +38,20 @@ public class Student implements Serializable {
 
     public String getEmail() {
         return email;
+    }
+
+    //Setters
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

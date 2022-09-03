@@ -17,6 +17,7 @@ import br.com.ram.model.StudentDAO;
 
 public class LoadDataFromStudentActivity extends AppCompatActivity {
     //Creating variables of views
+    TextView textViewId;
     TextView textViewName;
     TextView textViewPhone;
     TextView textViewEmail;
@@ -39,6 +40,7 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
     }
 
     private void initVariables() {
+        textViewId = findViewById(R.id.activity_load_data_from_student_tv_id);
         textViewName = findViewById(R.id.activity_load_data_from_student_tv_name);
         textViewPhone = findViewById(R.id.activity_load_data_from_student_tv_phone);
         textViewEmail = findViewById(R.id.activity_load_data_from_student_tv_email);
@@ -74,6 +76,7 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
     }
     private void fillDataOfStudentReceived(Student student) {
         //Fill the fields
+        textViewId.setText(Long.toString(student.getIdStudent()));
         textViewName.setText(student.getName());
         textViewPhone.setText(student.getPhone());
         textViewEmail.setText(student.getEmail());
