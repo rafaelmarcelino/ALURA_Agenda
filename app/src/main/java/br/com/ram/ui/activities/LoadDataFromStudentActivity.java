@@ -76,7 +76,7 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
     }
     private void fillDataOfStudentReceived(Student student) {
         //Fill the fields
-        textViewId.setText(Long.toString(student.getId()));
+        textViewId.setText(Long.toString(student.getIdStudent()));
         textViewName.setText(student.getName());
         textViewPhone.setText(student.getPhone());
         textViewEmail.setText(student.getEmail());
