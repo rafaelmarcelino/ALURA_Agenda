@@ -2,5 +2,6 @@
     <string name="app_name">ALURA_Agenda</string>
     <string name="activity_main_fab_add_students">Add Students</string>
     <string name="KEY_STUDENT">STUDENT</string>
-    <string name="KEY_ID_STUDENT">KEY_ID_STUDENT</string>
+    <string name="KEY_POSITION_STUDENT">KEY_POSITION_STUDENT</string>
+    <string name="BTN_UPDATE_CONTEXT">Update and exit</string>
 </resources>
