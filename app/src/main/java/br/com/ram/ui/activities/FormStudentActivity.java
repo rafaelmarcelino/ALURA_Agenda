@@ -79,6 +79,7 @@ public class FormStudentActivity extends AppCompatActivity {
         if (checkActionCreateOrUpdateStudent()){
             //Setting the title os app bar
             setTitle("Form to fill student's data");
+            Toast.makeText(FormStudentActivity.this, "No student to load data. Adding new student.", Toast.LENGTH_SHORT).show();
         }else{
             //Setting the title os app bar
             setTitle("Update student's data");
@@ -95,8 +96,6 @@ public class FormStudentActivity extends AppCompatActivity {
         //Validation of intent
         if (intent.hasExtra(getString(R.string.KEY_STUDENT))){
             return (Student) intent.getSerializableExtra(getString(R.string.KEY_STUDENT));
-        }else{
-            Toast.makeText(this, "No student to load data", Toast.LENGTH_SHORT).show();
         }
         return null;
     }
