@@ -11,13 +11,16 @@ public class StudentDAO {
     public void saveStudent(Student student) {
         students.add(student);
     }
-
-    public void updateStudent (int position, Student  student){
-        students.set(position,student);
+    public void updateStudent (int position, Student studentToBeUpdated){
+        students.set(position,studentToBeUpdated);
     }
-
+    public Student getStudentByPosition (int position){
+        return students.get(position);
+    }
+    public void removeStudent(Student studentToBeRemoved){
+        students.remove(studentToBeRemoved);
+    }
     public List<Student> getStudents(){
         return new ArrayList<>(students);
     }
-
 }

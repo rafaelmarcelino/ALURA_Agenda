@@ -1,13 +1,13 @@
 package br.com.ram.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import br.com.ram.model.StudentDAO;
 
 public class LoadDataFromStudentActivity extends AppCompatActivity {
     //Creating variables of views
+    TextView textViewId;
     TextView textViewName;
     TextView textViewPhone;
     TextView textViewEmail;
@@ -39,6 +40,7 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
     }
 
     private void initVariables() {
+        textViewId = findViewById(R.id.activity_load_data_from_student_tv_id);
         textViewName = findViewById(R.id.activity_load_data_from_student_tv_name);
         textViewPhone = findViewById(R.id.activity_load_data_from_student_tv_phone);
         textViewEmail = findViewById(R.id.activity_load_data_from_student_tv_email);
@@ -46,25 +48,6 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
 
         intent = getIntent();
 
-    }
-    private void loadDataFromRequiredStudent() {
-        //Get Id of student
-        long id = intent.getLongExtra("ID", -1);
-        //Check if id is valid
-        if (id > -1) {
-            fillDataOfStudentWithId(id);
-        } else {
-            Toast.makeText(this, "ID is not valid", Toast.LENGTH_SHORT).show();
-        }
-    }
-    private void fillDataOfStudentWithId(long id) {
-        //Get data from buffer of students
-        final StudentDAO studentDAO = new StudentDAO();
-        final List<Student> students = studentDAO.getStudents();
-        //Fill the fields
-        textViewName.setText(students.get(Integer.parseInt(Long.toString(id))).getName());
-        textViewPhone.setText(students.get(Integer.parseInt(Long.toString(id))).getPhone());
-        textViewEmail.setText(students.get(Integer.parseInt(Long.toString(id))).getEmail());
     }
     private void callListenersOfViews() {
         //Button
@@ -75,5 +58,27 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void loadDataFromRequiredStudent() {
+        //Get student to be show
+        if (intent.hasExtra(getString(R.string.KEY_STUDENT))) {
+            //Collect student sent from activity
+            final Student student = getStudentFromIntent();
+            //Fill data to be updated
+            fillDataOfStudentReceived(student);
+        } else {
+            Toast.makeText(this, "No student received from last activity", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+    private Student getStudentFromIntent() {
+        final Student student = (Student) intent.getSerializableExtra(getString(R.string.KEY_STUDENT));
+        return student;
+    }
+    private void fillDataOfStudentReceived(Student student) {
+        //Fill the fields
+        textViewId.setText(Long.toString(student.getIdStudent()));
+        textViewName.setText(student.getName());
+        textViewPhone.setText(student.getPhone());
+        textViewEmail.setText(student.getEmail());
+    }
 }
