@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/activity_students_list_ctx_menu_update_student"
+        android:title="@string/CTX_MENU_UPDATE_STUDENT" />
+    <item android:id="@+id/activity_students_list_ctx_menu_remove_student"
+        android:title="@string/CTX_MENU_REMOVE_STUDENT" />
+</menu>

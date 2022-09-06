@@ -54,6 +54,9 @@ public class FormStudentActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.activity_form_student_et_email);
         buttonSaveUpdate = findViewById(R.id.activity_form_student_bt_save_update);
         studentDAO = new StudentDAO();
+        //Adding new students to test. NOT NECESSARY THIS. ONLY FOR TESTS PURPOSES!!!
+        studentDAO.saveStudent(new Student("Rafael Alves Marcelino","11 985264091","r.marcelino@ram-automation.com"));
+        studentDAO.saveStudent(new Student("Karine Alves Marcelino","11 991764568","k.marcelino@ram-automation.com"));
         intent = getIntent();
     }
     private void callListenersOfViews(){
