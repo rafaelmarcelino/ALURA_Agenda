@@ -5,5 +5,6 @@
     <string name="KEY_POSITION_STUDENT">KEY_POSITION_STUDENT</string>
     <string name="CTX_MENU_UPDATE_STUDENT">UPDATE STUDENT</string>
     <string name="CTX_MENU_REMOVE_STUDENT">REMOVE STUDENT</string>
-    <string name="BTN_UPDATE_CONTEXT">Update and exit</string>
+    <string name="OPT_MENU_UPDATE_CONTEXT">Update and exit</string>
+    <string name="OPT_MENU_SAVE_CONTEXT">Save and exit</string>
 </resources>
