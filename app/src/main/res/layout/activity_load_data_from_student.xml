@@ -44,12 +44,6 @@
                 android:padding="8dp"
                 android:layout_margin="8dp"/>
 
-            <Button
-                android:id="@+id/activity_load_data_from_student_bt_back"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Back"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>
