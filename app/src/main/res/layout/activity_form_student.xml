@@ -38,15 +38,6 @@
                 android:layout_margin="8dp"
                 android:inputType="textEmailAddress"
                 android:hint="Email"/>
-            <Button
-                android:id="@+id/activity_form_student_bt_save_update"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Save"/>
-
-
-
         </LinearLayout>
     </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>

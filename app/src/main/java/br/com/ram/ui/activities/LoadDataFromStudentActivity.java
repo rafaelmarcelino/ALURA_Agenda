@@ -2,11 +2,14 @@ package br.com.ram.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -35,8 +38,23 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
         initVariables();
         //Load data from required student
         loadDataFromRequiredStudent();
-        //Call listener of views
-        callListenersOfViews();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        //Inflating layout
+        getMenuInflater().inflate(R.menu.activity_load_data_from_student_option_back,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.activity_load_data_from_student_opt_back:{
+                finish();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initVariables() {
@@ -44,19 +62,9 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
         textViewName = findViewById(R.id.activity_load_data_from_student_tv_name);
         textViewPhone = findViewById(R.id.activity_load_data_from_student_tv_phone);
         textViewEmail = findViewById(R.id.activity_load_data_from_student_tv_email);
-        buttonBack = findViewById(R.id.activity_load_data_from_student_bt_back);
 
         intent = getIntent();
 
-    }
-    private void callListenersOfViews() {
-        //Button
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
     private void loadDataFromRequiredStudent() {
         //Get student to be show
