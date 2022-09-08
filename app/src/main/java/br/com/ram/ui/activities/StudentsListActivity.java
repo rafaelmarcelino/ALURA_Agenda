@@ -60,8 +60,8 @@ public class StudentsListActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(Constants.CTX_MENU_UPDATE_STUDENT);
-        menu.add(Constants.CTX_MENU_REMOVE_STUDENT);
+        //Inflating layout from menu
+        getMenuInflater().inflate(R.menu.activity_students_list_menu,menu);
     }
 
     @Override
@@ -69,10 +69,10 @@ public class StudentsListActivity extends AppCompatActivity {
         //Get feedback from adapter data
         final AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         //Check action to be performed
-        if (item.getTitle() == Constants.CTX_MENU_UPDATE_STUDENT){
+        if (item.getItemId()== R.id.activity_students_list_ctx_menu_update_student){
             //Update action
             startUpdateStudentAction(menuInfo.position);
-        }else if(item.getTitle() == Constants.CTX_MENU_REMOVE_STUDENT){
+        }else if(item.getItemId()== R.id.activity_students_list_ctx_menu_remove_student){
             //Remove action
             startRemoveStudentAction(menuInfo.position);
         }
@@ -107,7 +107,19 @@ public class StudentsListActivity extends AppCompatActivity {
         registerForContextMenu(lv_students);
         //Init tool to handle student
         studentDAO = new StudentDAO();
+        addingBundleOfStudents(30);
     }
+
+    private void addingBundleOfStudents(int qtyOfStudents) {
+        //Adding new students to test. NOT NECESSARY THIS. ONLY FOR TESTS PURPOSES!!!
+        if (studentDAO.getStudents().size() == Constants.EMPTY) {
+            for (int i = 0; i < qtyOfStudents; i++) {
+                studentDAO.saveStudent(new Student("Rafael Alves Marcelino", "11 985264091", "r.marcelino@ram-automation.com"));
+                studentDAO.saveStudent(new Student("Karine Alves Marcelino", "11 991764568", "k.marcelino@ram-automation.com"));
+            }
+        }
+    }
+
     private void callListenersOfViews(){
         //Floating action button
         fabAddStudent.setOnClickListener(new View.OnClickListener() {

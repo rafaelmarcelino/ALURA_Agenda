@@ -2,8 +2,8 @@ package br.com.ram.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,7 +20,6 @@ public class FormStudentActivity extends AppCompatActivity {
     private EditText editTextName;
     private EditText editTextPhone;
     private EditText editTextEmail;
-    private Button buttonSaveUpdate;
     private StudentDAO studentDAO;
     private Intent intent;
     @Override
@@ -34,33 +33,27 @@ public class FormStudentActivity extends AppCompatActivity {
         setAppBarTitleByActionExecuted();
         //Handle data of student if action to be executed isn't be an action to create a new student
         if (getStudentFromIntent()!= null){
-            changeTextOfButtonToUpdateStudent();
+            //changeTextOfButtonToUpdateStudent();
             loadDataToUpdateStudent();
         }
         //Call listeners of views
-        callListenersOfViews();
+        //callListenersOfViews();
     }
 
-    private void changeTextOfButtonToUpdateStudent() {
-        //Set text of button to fit better the context for update a student
-        buttonSaveUpdate.setText(R.string.BTN_UPDATE_CONTEXT);
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        //Inflating layout for option menu
+        getMenuInflater().inflate(R.menu.acticity_form_student_option_save,menu);
+        //Changing title to fit with context
+        changingItemTitleDependingAction(menu.getItem(menu.size()-1));
+        return super.onCreateOptionsMenu(menu);
     }
 
-
-    //Methods
-    private void initVariables() {
-        editTextName = findViewById(R.id.activity_form_student_et_name);
-        editTextPhone = findViewById(R.id.activity_form_student_et_phone);
-        editTextEmail = findViewById(R.id.activity_form_student_et_email);
-        buttonSaveUpdate = findViewById(R.id.activity_form_student_bt_save_update);
-        studentDAO = new StudentDAO();
-        intent = getIntent();
-    }
-    private void callListenersOfViews(){
-        //Button
-        buttonSaveUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //Selecting action
+        switch (item.getItemId()){
+            case R.id.activity_form_student_opt_save_update:{
                 if (getStudentFromIntent()== null) {
                     //Add new student
                     handleDataToAddNewStudent();
@@ -70,10 +63,23 @@ public class FormStudentActivity extends AppCompatActivity {
                 }
                 //Returning to activity that called this
                 finish();
-
             }
-        });
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    private void changingItemTitleDependingAction(@NonNull MenuItem item) {
+        String newTitle = (getStudentFromIntent() == null?getString(R.string.OPT_MENU_SAVE_CONTEXT):getString(R.string.OPT_MENU_UPDATE_CONTEXT));
+        item.setTitle(newTitle);
+    }
+
+    //Methods
+    private void initVariables() {
+        editTextName = findViewById(R.id.activity_form_student_et_name);
+        editTextPhone = findViewById(R.id.activity_form_student_et_phone);
+        editTextEmail = findViewById(R.id.activity_form_student_et_email);
+        studentDAO = new StudentDAO();
+        intent = getIntent();
     }
     private void setAppBarTitleByActionExecuted() {
         if (checkActionCreateOrUpdateStudent()){
@@ -132,7 +138,6 @@ public class FormStudentActivity extends AppCompatActivity {
         editTextPhone.setText(student.getPhone());
         editTextEmail.setText(student.getEmail());
     }
-
     private Student getStudentWithDataUpdated() {
         //Collecting student from intent
         final Student student = getStudentFromIntent();
