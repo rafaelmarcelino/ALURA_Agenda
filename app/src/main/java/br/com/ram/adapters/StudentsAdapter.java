@@ -11,13 +11,13 @@ import java.util.List;
 
 import br.com.ram.model.Student;
 
-public class StudentAdapters extends BaseAdapter {
+public class StudentsAdapter extends BaseAdapter {
     private Context context;
     private int layoutResource;
     private List <Student> students;
 
     //Constructor
-    public StudentAdapters(Context context, int layoutResource) {
+    public StudentsAdapter(Context context, int layoutResource) {
         this.context = context;
         this.layoutResource = layoutResource;
         this.students = new ArrayList<>();
@@ -40,7 +40,15 @@ public class StudentAdapters extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final View viewInflated = LayoutInflater.from(this.context).inflate(layoutResource, parent);
+        final View viewInflated = LayoutInflater.from(this.context).inflate(layoutResource, parent, false);
         return viewInflated;
+    }
+
+    public void clear() {
+        this.students.clear();
+    }
+
+    public void addAll(List<Student> students) {
+        this.students.addAll(students);
     }
 }
