@@ -57,11 +57,10 @@ public class StudentsAdapter extends BaseAdapter {
         tvPhone.setText(this.students.get(position).getPhone());
     }
 
-    public void clear() {
+    public void updateDataFromList(List<Student> students){
         this.students.clear();
-    }
-
-    public void addAll(List<Student> students) {
         this.students.addAll(students);
+        //Notify view to update the data
+        notifyDataSetChanged();
     }
 }
