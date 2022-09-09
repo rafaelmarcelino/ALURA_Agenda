@@ -142,12 +142,8 @@ public class StudentsListActivity extends AppCompatActivity {
         return new StudentDAO().getStudents();
     }
     private void updatingDataOfAdapter(List<Student>students){
-        //Clear previous data of adapter
-        studentAdapters.clear();
-        //adapter_lv_students.clear();
         //Updating data of adapter
-        studentAdapters.addAll(students);
-        //adapter_lv_students.addAll(students);
+        studentAdapters.updateDataFromList(students);
     }
     private void openActivityToFillDataOfStudent() {
         startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
