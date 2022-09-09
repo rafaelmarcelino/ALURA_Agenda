@@ -6,7 +6,6 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,9 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.PipedOutputStream;
 import java.util.List;
 
+import br.com.ram.adapters.StudentsAdapter;
 import br.com.ram.tools.Constants;
 import br.com.ram.R;
 import br.com.ram.model.Student;
@@ -28,8 +27,8 @@ public class StudentsListActivity extends AppCompatActivity {
     //Creating variables of views
     private FloatingActionButton fabAddStudent;
     private ListView lv_students;
-    //Creating an adapter to send data to List View
-    ArrayAdapter<Student> adapter_lv_students;
+    //Creating a custom adapter to send data to list view
+    StudentsAdapter studentAdapters;
     //Creating tool to handle students
     StudentDAO studentDAO;
     @Override
@@ -99,10 +98,10 @@ public class StudentsListActivity extends AppCompatActivity {
         //Init views
         fabAddStudent = findViewById(R.id.activity_students_list_fab_add_students);
         lv_students = findViewById(R.id.activity_students_list_lv_students);
-
-        adapter_lv_students = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        //Init adapters
+        studentAdapters = new StudentsAdapter(this,R.layout.list_view_item_student);
         //Linking the adapter in list view
-        lv_students.setAdapter(adapter_lv_students);
+        lv_students.setAdapter(studentAdapters);
         //Register a context menu to this list view
         registerForContextMenu(lv_students);
         //Init tool to handle student
@@ -144,9 +143,11 @@ public class StudentsListActivity extends AppCompatActivity {
     }
     private void updatingDataOfAdapter(List<Student>students){
         //Clear previous data of adapter
-        adapter_lv_students.clear();
+        studentAdapters.clear();
+        //adapter_lv_students.clear();
         //Updating data of adapter
-        adapter_lv_students.addAll(students);
+        studentAdapters.addAll(students);
+        //adapter_lv_students.addAll(students);
     }
     private void openActivityToFillDataOfStudent() {
         startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
