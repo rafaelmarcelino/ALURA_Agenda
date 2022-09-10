@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public class Student implements Serializable {
     private static long id = 0;
-    private long idStudent;
+    private final long idStudent;
     private String name;
     private String phone;
     private String email;

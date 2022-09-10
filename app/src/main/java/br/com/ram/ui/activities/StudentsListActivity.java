@@ -111,6 +111,7 @@ public class StudentsListActivity extends AppCompatActivity {
         //Init tool to handle student
         studentDAO = new StudentDAO();
     }
+    @SuppressWarnings("Convert2Lambda")
     private void callListenersOfViews(){
         //Floating action button
         fabAddStudent.setOnClickListener(new View.OnClickListener() {
@@ -151,6 +152,7 @@ public class StudentsListActivity extends AppCompatActivity {
         intent.putExtra(getString(R.string.KEY_STUDENT), student);
         startActivity(intent);
     }
+    @SuppressWarnings("Convert2Lambda")
     private void callDialogs(int position) {
         new AlertDialog.Builder(this)
                 .setTitle("Removing Student")
