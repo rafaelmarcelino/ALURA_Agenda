@@ -83,20 +83,6 @@ public class StudentsListActivity extends AppCompatActivity {
 
     }
 
-    private void startRemoveStudentAction(int position) {
-        //Getting a student to send to update
-        final Student student = studentDAO.getStudentByPosition(position);
-        studentDAO.removeStudent(student);
-        //Updating data to refresh list view
-        updatingDataOfAdapter(studentDAO.getStudents());
-    }
-
-    private void startUpdateStudentAction(int position) {
-        //Getting a student to send to update
-        final Student student = studentDAO.getStudentByPosition(position);
-        openActivityToUpdateDataOfStudent(student,position);
-    }
-
     //Methods
     private void initVariables() {
         //Init views
@@ -140,6 +126,18 @@ public class StudentsListActivity extends AppCompatActivity {
     }
     private void openActivityToFillDataOfStudent() {
         startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
+    }
+    private void startRemoveStudentAction(int position) {
+        //Getting a student to send to update
+        final Student student = studentDAO.getStudentByPosition(position);
+        studentDAO.removeStudent(student);
+        //Updating data to refresh list view
+        updatingDataOfAdapter(studentDAO.getStudents());
+    }
+    private void startUpdateStudentAction(int position) {
+        //Getting a student to send to update
+        final Student student = studentDAO.getStudentByPosition(position);
+        openActivityToUpdateDataOfStudent(student,position);
     }
     private void openActivityToUpdateDataOfStudent(Student student, int positionToBeUpdated) {
         Intent intent = new Intent(StudentsListActivity.this, FormStudentActivity.class);
