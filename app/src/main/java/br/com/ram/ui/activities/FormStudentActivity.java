@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Objects;
+
 import br.com.ram.R;
 import br.com.ram.model.Student;
 import br.com.ram.model.StudentDAO;
@@ -52,18 +54,16 @@ public class FormStudentActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //Selecting action
-        switch (item.getItemId()){
-            case R.id.activity_form_student_opt_save_update:{
-                if (getStudentFromIntent()== null) {
-                    //Add new student
-                    handleDataToAddNewStudent();
-                }else{
-                    //Update student
-                    handleDataToUpdateStudent();
-                }
-                //Returning to activity that called this
-                finish();
+        if (item.getItemId() == R.id.activity_form_student_opt_save_update) {
+            if (getStudentFromIntent() == null) {
+                //Add new student
+                handleDataToAddNewStudent();
+            } else {
+                //Update student
+                handleDataToUpdateStudent();
             }
+            //Returning to activity that called this
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -93,10 +93,7 @@ public class FormStudentActivity extends AppCompatActivity {
     }
     private boolean checkActionCreateOrUpdateStudent() {
         //Validation to handle new student or update the student included in intent
-        if (getStudentFromIntent() == null){
-            return true;
-        }
-        return false;
+        return getStudentFromIntent() == null;
     }
     private Student getStudentFromIntent() {
         //Validation of intent
@@ -130,7 +127,7 @@ public class FormStudentActivity extends AppCompatActivity {
     }
     private void loadDataToUpdateStudent(){
         //Validation to collect student
-        loadFieldsWithDataOfStudent(getStudentFromIntent());
+        loadFieldsWithDataOfStudent(Objects.requireNonNull(getStudentFromIntent()));
     }
     private void loadFieldsWithDataOfStudent(Student student) {
         //Fill the fields with data of this student
@@ -142,6 +139,7 @@ public class FormStudentActivity extends AppCompatActivity {
         //Collecting student from intent
         final Student student = getStudentFromIntent();
         //Update student with new data filled
+        assert student != null;
         student.setName(editTextName.getText().toString());
         student.setPhone(editTextPhone.getText().toString());
         student.setEmail(editTextEmail.getText().toString());
@@ -159,7 +157,7 @@ public class FormStudentActivity extends AppCompatActivity {
     }
     @NonNull
     private Student getStudentDataFilled() {
-        Student student = null;
+        Student student;
         if (getStudentFromIntent() == null){
         //Creating new student with data filled if action should be  create new
         student = new Student(editTextName.getText().toString(),

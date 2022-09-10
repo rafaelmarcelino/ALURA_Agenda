@@ -1,18 +1,19 @@
 package br.com.ram.model;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Student implements Serializable {
     private static long id = 0;
-    private long idStudent = 0;
-    private int position = 0;
+    private long idStudent;
     private String name;
     private String phone;
     private String email;
 
     //Constructor
     public Student(String name, String phone, String email) {
-        this.id ++;
+        id ++;
         this.idStudent = getId();
         setName(name);
         setPhone(phone);
@@ -54,6 +55,7 @@ public class Student implements Serializable {
         this.email = email;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return this.getName();

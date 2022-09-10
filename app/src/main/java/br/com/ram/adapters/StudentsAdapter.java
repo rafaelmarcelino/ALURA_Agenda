@@ -14,9 +14,9 @@ import br.com.ram.R;
 import br.com.ram.model.Student;
 
 public class StudentsAdapter extends BaseAdapter {
-    private Context context;
-    private int layoutResource;
-    private List <Student> students;
+    private final Context context;
+    private final int layoutResource;
+    private final List <Student> students;
 
     //Constructor
     public StudentsAdapter(Context context, int layoutResource) {

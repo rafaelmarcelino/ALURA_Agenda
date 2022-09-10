@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,11 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.List;
-
 import br.com.ram.R;
 import br.com.ram.model.Student;
-import br.com.ram.model.StudentDAO;
 
 public class LoadDataFromStudentActivity extends AppCompatActivity {
     //Creating variables of views
@@ -49,10 +45,8 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.activity_load_data_from_student_opt_back:{
-                finish();
-            }
+        if (item.getItemId() == R.id.activity_load_data_from_student_opt_back) {
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -79,8 +73,7 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
         }
     }
     private Student getStudentFromIntent() {
-        final Student student = (Student) intent.getSerializableExtra(getString(R.string.KEY_STUDENT));
-        return student;
+        return (Student) intent.getSerializableExtra(getString(R.string.KEY_STUDENT));
     }
     private void fillDataOfStudentReceived(Student student) {
         //Fill the fields
