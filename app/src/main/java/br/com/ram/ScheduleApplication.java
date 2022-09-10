@@ -11,15 +11,15 @@ public class ScheduleApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        addingBundleOfStudents(2);
+        addingBundleOfStudents();
 
     }
 
-    private void addingBundleOfStudents(int qtyOfStudents) {
+    private void addingBundleOfStudents() {
         //Adding new students to test. NOT NECESSARY THIS. ONLY FOR TESTS PURPOSES!!!
         StudentDAO studentDAO = new StudentDAO();
         if (studentDAO.getStudents().size() == Constants.EMPTY) {
-            for (int i = 0; i < qtyOfStudents; i++) {
+            for (int i = 0; i < 2; i++) {
                 studentDAO.saveStudent(new Student("Rafael Alves Marcelino", "11 985264091", "r.marcelino@ram-automation.com"));
                 studentDAO.saveStudent(new Student("Karine Alves Marcelino", "11 991764568", "k.marcelino@ram-automation.com"));
             }

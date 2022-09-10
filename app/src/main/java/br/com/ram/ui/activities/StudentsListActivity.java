@@ -1,5 +1,6 @@
 package br.com.ram.ui.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -72,25 +74,13 @@ public class StudentsListActivity extends AppCompatActivity {
             //Update action
             startUpdateStudentAction(menuInfo.position);
         }else if(item.getItemId()== R.id.activity_students_list_ctx_menu_remove_student){
+            //Call dialog to confirm remove action
+            callDialogs(menuInfo.position);
             //Remove action
-            startRemoveStudentAction(menuInfo.position);
+            //startRemoveStudentAction(menuInfo.position);
         }
         return super.onContextItemSelected(item);
 
-    }
-
-    private void startRemoveStudentAction(int position) {
-        //Getting a student to send to update
-        final Student student = studentDAO.getStudentByPosition(position);
-        studentDAO.removeStudent(student);
-        //Updating data to refresh list view
-        updatingDataOfAdapter(studentDAO.getStudents());
-    }
-
-    private void startUpdateStudentAction(int position) {
-        //Getting a student to send to update
-        final Student student = studentDAO.getStudentByPosition(position);
-        openActivityToUpdateDataOfStudent(student,position);
     }
 
     //Methods
@@ -107,7 +97,7 @@ public class StudentsListActivity extends AppCompatActivity {
         //Init tool to handle student
         studentDAO = new StudentDAO();
     }
-
+    @SuppressWarnings("Convert2Lambda")
     private void callListenersOfViews(){
         //Floating action button
         fabAddStudent.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +127,18 @@ public class StudentsListActivity extends AppCompatActivity {
     private void openActivityToFillDataOfStudent() {
         startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
     }
+    private void startRemoveStudentAction(int position) {
+        //Getting a student to send to update
+        final Student student = studentDAO.getStudentByPosition(position);
+        studentDAO.removeStudent(student);
+        //Updating data to refresh list view
+        updatingDataOfAdapter(studentDAO.getStudents());
+    }
+    private void startUpdateStudentAction(int position) {
+        //Getting a student to send to update
+        final Student student = studentDAO.getStudentByPosition(position);
+        openActivityToUpdateDataOfStudent(student,position);
+    }
     private void openActivityToUpdateDataOfStudent(Student student, int positionToBeUpdated) {
         Intent intent = new Intent(StudentsListActivity.this, FormStudentActivity.class);
         intent.putExtra(getString(R.string.KEY_STUDENT), student);
@@ -148,4 +150,19 @@ public class StudentsListActivity extends AppCompatActivity {
         intent.putExtra(getString(R.string.KEY_STUDENT), student);
         startActivity(intent);
     }
+    @SuppressWarnings("Convert2Lambda")
+    private void callDialogs(int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("Removing Student")
+                .setMessage("Are you sure that you want to remove this student?")
+                .setNegativeButton("No", null)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startRemoveStudentAction(position);
+                    }
+                })
+                .show();
+    }
+
 }
