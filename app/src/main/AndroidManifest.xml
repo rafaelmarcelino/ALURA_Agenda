@@ -4,6 +4,7 @@
     package="br.com.ram">
 
     <application
+        android:name=".ScheduleApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,23 +13,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ALURA_Agenda"
-        android:name=".ScheduleApplication"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.activities.TestConstraintActivity"
+            android:exported="true">
+           <intent-filter>
+               <action android:name="android.intent.action.MAIN" />
+
+               <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activities.StudentsListActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".ui.activities.LoadDataFromStudentActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.FormStudentActivity"
             android:exported="true" />
-        <activity
-            android:name=".ui.activities.StudentsListActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
