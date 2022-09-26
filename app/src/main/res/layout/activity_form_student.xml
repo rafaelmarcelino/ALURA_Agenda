@@ -37,6 +37,42 @@
                 android:layout_margin="8dp"
                 android:inputType="textEmailAddress"
                 android:hint="Email"/>
+
+            <EditText
+                android:id="@+id/activity_form_student_et_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:inputType="number"
+                android:hint="Age"/>
+
+            <RadioGroup
+                android:id="@+id/activity_form_student_rg_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/activity_form_student_rb_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MALE"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="100dp"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/activity_form_student_rb_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="100dp"
+                    android:layout_weight="0.5"
+                    android:text="FEMALE"/>
+
+
+            </RadioGroup>
+
+
         </LinearLayout>
     </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>
