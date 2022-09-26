@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,8 @@ public class FormStudentActivity extends AppCompatActivity {
     private EditText editTextName;
     private EditText editTextPhone;
     private EditText editTextEmail;
+    private EditText editTextAge;
+    private RadioGroup radioGroupGender;
     private StudentDAO studentDAO;
     private Intent intent;
     @Override
@@ -78,6 +82,8 @@ public class FormStudentActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.activity_form_student_et_name);
         editTextPhone = findViewById(R.id.activity_form_student_et_phone);
         editTextEmail = findViewById(R.id.activity_form_student_et_email);
+        editTextAge = findViewById(R.id.activity_form_student_et_age);
+        radioGroupGender = findViewById(R.id.activity_form_student_rg_gender);
         studentDAO = new StudentDAO();
         intent = getIntent();
     }
@@ -134,6 +140,9 @@ public class FormStudentActivity extends AppCompatActivity {
         editTextName.setText(student.getName());
         editTextPhone.setText(student.getPhone());
         editTextEmail.setText(student.getEmail());
+        editTextAge.setText(student.getAge());
+        final int gender = student.getGender()==Constants.MALE?R.id.activity_form_student_rb_male:R.id.activity_form_student_rb_female;
+        radioGroupGender.check(gender);
     }
     private Student getStudentWithDataUpdated() {
         //Collecting student from intent
@@ -143,6 +152,7 @@ public class FormStudentActivity extends AppCompatActivity {
         student.setName(editTextName.getText().toString());
         student.setPhone(editTextPhone.getText().toString());
         student.setEmail(editTextEmail.getText().toString());
+        student.setAge(Integer.parseInt(editTextAge.getText().toString()));
         return student;
     }
     private void updateStudentWithNewData(Student student, int positionOfStudentToBeUpdated) {
@@ -159,10 +169,15 @@ public class FormStudentActivity extends AppCompatActivity {
     private Student getStudentDataFilled() {
         Student student;
         if (getStudentFromIntent() == null){
-        //Creating new student with data filled if action should be  create new
-        student = new Student(editTextName.getText().toString(),
-                editTextPhone.getText().toString(),
-                editTextEmail.getText().toString());}
+            //Receiving gender from radio button
+            final int gender = radioGroupGender.getCheckedRadioButtonId()==R.id.activity_form_student_rb_male?Constants.MALE:Constants.FEMALE;
+            //Creating new student with data filled if action should be  create new
+            student = new Student(editTextName.getText().toString(),
+                    editTextPhone.getText().toString(),
+                    editTextEmail.getText().toString(),
+                    Integer.parseInt(editTextAge.getText().toString()),
+                    gender);
+        }
         else{
             //Loading student with data filled if action should be update
             student = getStudentWithDataUpdated();
