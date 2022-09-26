@@ -7,5 +7,8 @@ public interface Constants {
     int DEFAULT_ERROR_INDEX = -1;
     int WRONG_INDEX = -1;
 
+    int MALE = 1;
+    int FEMALE = 2;
+
 
 }
