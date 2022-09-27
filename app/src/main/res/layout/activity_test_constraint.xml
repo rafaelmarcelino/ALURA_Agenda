@@ -53,6 +53,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_test_constraint_iv"
         app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/cell_constraint_lv_students" />
+        tools:listitem="@layout/cell_constraint_lv_students"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_test_constraint_fab_add_student"
+        app:layout_constraintStart_toStartOf="@id/activity_test_constraint_lv_students"
+        app:layout_constraintEnd_toEndOf="@id/activity_test_constraint_lv_students"
+        app:layout_constraintTop_toTopOf="@id/activity_test_constraint_lv_students"
+        app:layout_constraintBottom_toBottomOf="@id/activity_test_constraint_lv_students"
+        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.95"
+        android:src="@drawable/ic_action_add_student"
+        android:backgroundTint="@color/purple_500"
+        app:tint="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
