@@ -15,10 +15,6 @@
         android:theme="@style/Theme.ALURA_Agenda"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.TestConstraintActivity"
-            android:exported="true">
-        </activity>
-        <activity
             android:name=".ui.activities.StudentsListActivity"
             android:exported="true">
             <intent-filter>

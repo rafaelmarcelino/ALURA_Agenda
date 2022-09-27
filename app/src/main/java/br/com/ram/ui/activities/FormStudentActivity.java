@@ -46,7 +46,7 @@ public class FormStudentActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         //Inflating layout for option menu
-        getMenuInflater().inflate(R.menu.acticity_form_student_option_save,menu);
+        getMenuInflater().inflate(R.menu.activity_form_student_option_save,menu);
         //Changing title to fit with context
         changingItemTitleDependingAction(menu.getItem(menu.size()-1));
         return super.onCreateOptionsMenu(menu);

@@ -40,7 +40,7 @@ public class StudentsListActivity extends AppCompatActivity {
         setTitle("RAM Automation");
         //Call a view in this activity
         //setContentView(R.layout.activity_students_list);
-        setContentView(R.layout.activity_test_constraint);
+        setContentView(R.layout.activity_students_list);
 
         //Init variables
         initVariables();
@@ -88,11 +88,11 @@ public class StudentsListActivity extends AppCompatActivity {
     private void initVariables() {
         //Init views
         //fabAddStudent = findViewById(R.id.activity_students_list_fab_add_students);
-        fabAddStudent = findViewById(R.id.activity_test_constraint_fab_add_student);
+        fabAddStudent = findViewById(R.id.activity_students_list_fab_add_student);
         //lv_students = findViewById(R.id.activity_students_list_lv_students);
-        lv_students = findViewById(R.id.activity_test_constraint_lv_students);
+        lv_students = findViewById(R.id.activity_students_list_lv_students);
         //Init adapters
-        studentAdapters = new StudentsAdapter(this,R.layout.cell_constraint_lv_students);//R.layout.list_view_item_student);
+        studentAdapters = new StudentsAdapter(this,R.layout.cell_lv_students);//R.layout.list_view_item_student);
         //Linking the adapter in list view
         lv_students.setAdapter(studentAdapters);
         //Register a context menu to this list view
