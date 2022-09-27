@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.ram.R;
 import br.com.ram.model.Student;
+import br.com.ram.tools.Constants;
 
 public class LoadDataFromStudentActivity extends AppCompatActivity {
     //Creating variables of views
@@ -20,7 +20,8 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
     TextView textViewName;
     TextView textViewPhone;
     TextView textViewEmail;
-    Button buttonBack;
+    TextView textViewAge;
+    TextView textViewGender;
     //Creating variables
     Intent intent;
 
@@ -56,7 +57,8 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
         textViewName = findViewById(R.id.activity_load_data_from_student_tv_name);
         textViewPhone = findViewById(R.id.activity_load_data_from_student_tv_phone);
         textViewEmail = findViewById(R.id.activity_load_data_from_student_tv_email);
-
+        textViewAge = findViewById(R.id.activity_load_data_from_student_tv_age);
+        textViewGender = findViewById(R.id.activity_load_data_from_student_tv_gender);
         intent = getIntent();
 
     }
@@ -79,7 +81,10 @@ public class LoadDataFromStudentActivity extends AppCompatActivity {
         //Fill the fields
         textViewId.setText(Long.toString(student.getIdStudent()));
         textViewName.setText(student.getName());
+        textViewAge.setText(String.valueOf(student.getAge())+" years old");
         textViewPhone.setText(student.getPhone());
         textViewEmail.setText(student.getEmail());
+        final String gender = student.getGender()== Constants.MALE?"MALE":"FEMALE";
+        textViewGender.setText(gender);
     }
 }

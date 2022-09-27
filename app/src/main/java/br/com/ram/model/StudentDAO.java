@@ -11,7 +11,7 @@ public class StudentDAO {
     public void saveStudent(Student student) {
         students.add(student);
     }
-    public void updateStudent (int position, Student studentToBeUpdated){
+    public void saveUpdatesInStudent(int position, Student studentToBeUpdated){
         students.set(position,studentToBeUpdated);
     }
     public Student getStudentByPosition (int position){

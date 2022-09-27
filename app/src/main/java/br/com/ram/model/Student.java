@@ -7,17 +7,21 @@ import java.io.Serializable;
 public class Student implements Serializable {
     private static long id = 0;
     private final long idStudent;
+    private int gender;
+    private int age;
     private String name;
     private String phone;
     private String email;
 
     //Constructor
-    public Student(String name, String phone, String email) {
+    public Student(String name, String phone, String email,int age, int gender) {
         id ++;
         this.idStudent = getId();
         setName(name);
         setPhone(phone);
         setEmail(email);
+        setAge(age);
+        setGender(gender);
     }
 
     //Getters
@@ -41,6 +45,13 @@ public class Student implements Serializable {
         return email;
     }
 
+    public int getGender() {
+        return gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
     //Setters
 
     public void setName(String name) {
@@ -55,6 +66,13 @@ public class Student implements Serializable {
         this.email = email;
     }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
     @NonNull
     @Override
     public String toString() {
