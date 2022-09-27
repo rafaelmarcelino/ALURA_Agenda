@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:id="@+id/activity_form_student_opt_save_update"
-        android:title="Save Student"
-        android:icon="@drawable/ic_action_save_update_student"
-        app:showAsAction="always"/>
-</menu>
