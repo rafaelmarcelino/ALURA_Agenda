@@ -21,7 +21,7 @@ public class Student implements Serializable {
         setPhone(phone);
         setEmail(email);
         setAge(age);
-        this.gender = gender;
+        setGender(gender);
     }
 
     //Getters
@@ -68,6 +68,10 @@ public class Student implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
     @NonNull
     @Override
