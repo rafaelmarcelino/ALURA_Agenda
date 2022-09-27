@@ -20,8 +20,8 @@ public class ScheduleApplication extends Application {
         StudentDAO studentDAO = new StudentDAO();
         if (studentDAO.getStudents().size() == Constants.EMPTY) {
             for (int i = 0; i < 2; i++) {
-                studentDAO.saveStudent(new Student("Rafael Alves Marcelino", "11 985264091", "r.marcelino@ram-automation.com"));
-                studentDAO.saveStudent(new Student("Karine Alves Marcelino", "11 991764568", "k.marcelino@ram-automation.com"));
+                studentDAO.saveStudent(new Student("Rafael Alves Marcelino", "11 985264091", "r.marcelino@ram-automation.com",37, Constants.MALE));
+                studentDAO.saveStudent(new Student("Karine Alves Marcelino", "11 991764568", "k.marcelino@ram-automation.com",33, Constants.FEMALE));
             }
         }
     }
