@@ -7,19 +7,20 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-import br.com.ram.adapters.StudentsAdapter;
+import br.com.ram.adapters.StudentsRecyclerViewAdapter;
 import br.com.ram.tools.Constants;
 import br.com.ram.R;
 import br.com.ram.model.Student;
@@ -28,9 +29,9 @@ import br.com.ram.model.StudentDAO;
 public class StudentsListActivity extends AppCompatActivity {
     //Creating variables of views
     private FloatingActionButton fabAddStudent;
-    private ListView lv_students;
-    //Creating a custom adapter to send data to list view
-    StudentsAdapter studentAdapters;
+    private RecyclerView rv_students;
+    //Creating a custom adapter to send data to recycler view
+    StudentsRecyclerViewAdapter studentsRecyclerViewAdapter;
     //Creating tool to handle students
     StudentDAO studentDAO;
     @Override
@@ -87,19 +88,23 @@ public class StudentsListActivity extends AppCompatActivity {
     //Methods
     private void initVariables() {
         //Init views
-        //fabAddStudent = findViewById(R.id.activity_students_list_fab_add_students);
         fabAddStudent = findViewById(R.id.activity_students_list_fab_add_student);
-        //lv_students = findViewById(R.id.activity_students_list_lv_students);
-        lv_students = findViewById(R.id.activity_students_list_lv_students);
-        //Init adapters
-        studentAdapters = new StudentsAdapter(this,R.layout.cell_lv_students);//R.layout.list_view_item_student);
-        //Linking the adapter in list view
-        lv_students.setAdapter(studentAdapters);
+        rv_students = findViewById(R.id.activity_students_list_rv_students);
+        //Configure recycler view
+        configureReciclerView();
         //Register a context menu to this list view
-        registerForContextMenu(lv_students);
+        registerForContextMenu(rv_students);
         //Init tool to handle student
         studentDAO = new StudentDAO();
     }
+
+    private void configureReciclerView() {
+        //Init adapters
+        studentsRecyclerViewAdapter = new StudentsRecyclerViewAdapter(this,R.layout.cell_rv_students);
+        //Set the adapter
+        rv_students.setAdapter(studentsRecyclerViewAdapter);
+    }
+
     @SuppressWarnings("Convert2Lambda")
     private void callListenersOfViews(){
         //Floating action button
@@ -110,14 +115,14 @@ public class StudentsListActivity extends AppCompatActivity {
             }
         });
 
-        lv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*rv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Getting a student to send to update
                 final Student student = (Student) parent.getItemAtPosition(position);
                 openActivityToShowDataOfStudent(student);
             }
-        });
+        });*/
     }
     private List<Student> getAllStudentsStored(){
         //Creating students
@@ -125,7 +130,8 @@ public class StudentsListActivity extends AppCompatActivity {
     }
     private void updatingDataOfAdapter(List<Student>students){
         //Updating data of adapter
-        studentAdapters.updateDataFromList(students);
+        //studentAdapters.updateDataFromList(students);
+        studentsRecyclerViewAdapter.updateDataFromList(students);
     }
     private void openActivityToFillDataOfStudent() {
         startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
@@ -137,17 +143,20 @@ public class StudentsListActivity extends AppCompatActivity {
         //Updating data to refresh list view
         updatingDataOfAdapter(studentDAO.getStudents());
     }
+
     private void startUpdateStudentAction(int position) {
         //Getting a student to send to update
         final Student student = studentDAO.getStudentByPosition(position);
         openActivityToUpdateDataOfStudent(student,position);
     }
+
     private void openActivityToUpdateDataOfStudent(Student student, int positionToBeUpdated) {
         Intent intent = new Intent(StudentsListActivity.this, FormStudentActivity.class);
         intent.putExtra(getString(R.string.KEY_STUDENT), student);
         intent.putExtra(getString(R.string.KEY_POSITION_STUDENT),positionToBeUpdated);
         startActivity(intent);
     }
+
     private void openActivityToShowDataOfStudent(Student student) {
         Intent intent = new Intent(StudentsListActivity.this, LoadDataFromStudentActivity.class);
         intent.putExtra(getString(R.string.KEY_STUDENT), student);
