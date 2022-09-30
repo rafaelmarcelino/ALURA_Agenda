@@ -43,8 +43,8 @@
         app:layout_constraintStart_toStartOf="@+id/activity_students_list_constraint_tv_title"
         app:layout_constraintTop_toBottomOf="@+id/activity_students_list_constraint_tv_title" />
 
-    <ListView
-        android:id="@+id/activity_students_list_lv_students"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/activity_students_list_rv_students"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,16 +53,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_students_list_constraint_iv"
         app:layout_constraintVertical_bias="0.0"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:divider="@color/white"
         android:dividerHeight="0dp"
-        tools:listitem="@layout/cell_lv_students"/>
+        tools:listitem="@layout/cell_rv_students"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/activity_students_list_fab_add_student"
-        app:layout_constraintStart_toStartOf="@id/activity_students_list_lv_students"
-        app:layout_constraintEnd_toEndOf="@id/activity_students_list_lv_students"
-        app:layout_constraintTop_toTopOf="@id/activity_students_list_lv_students"
-        app:layout_constraintBottom_toBottomOf="@id/activity_students_list_lv_students"
+        app:layout_constraintStart_toStartOf="@id/activity_students_list_rv_students"
+        app:layout_constraintEnd_toEndOf="@id/activity_students_list_rv_students"
+        app:layout_constraintTop_toTopOf="@id/activity_students_list_rv_students"
+        app:layout_constraintBottom_toBottomOf="@id/activity_students_list_rv_students"
         app:layout_constraintVertical_bias="0.95"
         app:layout_constraintHorizontal_bias="0.95"
         android:src="@drawable/ic_action_add_student"
