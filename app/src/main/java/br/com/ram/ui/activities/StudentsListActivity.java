@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import br.com.ram.adapters.StudentsRecyclerViewAdapter;
+import br.com.ram.interfaces.OnItemClickListener;
 import br.com.ram.tools.Constants;
 import br.com.ram.R;
 import br.com.ram.model.Student;
@@ -40,13 +40,11 @@ public class StudentsListActivity extends AppCompatActivity {
         //Setting the title os app bar
         setTitle("RAM Automation");
         //Call a view in this activity
-        //setContentView(R.layout.activity_students_list);
         setContentView(R.layout.activity_students_list);
-
         //Init variables
         initVariables();
         //Call listeners of views
-        callListenersOfViews();
+        callListenersOfViewsAndAdapters();
      }
 
     @Override
@@ -60,7 +58,7 @@ public class StudentsListActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+    /*@Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         //Inflating layout from menu
@@ -83,7 +81,7 @@ public class StudentsListActivity extends AppCompatActivity {
         }
         return super.onContextItemSelected(item);
 
-    }
+    }*/
 
     //Methods
     private void initVariables() {
@@ -91,14 +89,14 @@ public class StudentsListActivity extends AppCompatActivity {
         fabAddStudent = findViewById(R.id.activity_students_list_fab_add_student);
         rv_students = findViewById(R.id.activity_students_list_rv_students);
         //Configure recycler view
-        configureReciclerView();
+        configureRecyclerView();
         //Register a context menu to this list view
-        registerForContextMenu(rv_students);
+        //registerForContextMenu(rv_students);
         //Init tool to handle student
         studentDAO = new StudentDAO();
     }
 
-    private void configureReciclerView() {
+    private void configureRecyclerView() {
         //Init adapters
         studentsRecyclerViewAdapter = new StudentsRecyclerViewAdapter(this,R.layout.cell_rv_students);
         //Set the adapter
@@ -106,7 +104,7 @@ public class StudentsListActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("Convert2Lambda")
-    private void callListenersOfViews(){
+    private void callListenersOfViewsAndAdapters(){
         //Floating action button
         fabAddStudent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,27 +113,28 @@ public class StudentsListActivity extends AppCompatActivity {
             }
         });
 
-        /*rv_students.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        studentsRecyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Getting a student to send to update
-                final Student student = (Student) parent.getItemAtPosition(position);
+            public void onItemClick(Student student) {
                 openActivityToShowDataOfStudent(student);
             }
-        });*/
+        });
     }
+
     private List<Student> getAllStudentsStored(){
         //Creating students
         return new StudentDAO().getStudents();
     }
+
     private void updatingDataOfAdapter(List<Student>students){
         //Updating data of adapter
-        //studentAdapters.updateDataFromList(students);
         studentsRecyclerViewAdapter.updateDataFromList(students);
     }
+
     private void openActivityToFillDataOfStudent() {
         startActivity(new Intent(StudentsListActivity.this,FormStudentActivity.class));
     }
+
     private void startRemoveStudentAction(int position) {
         //Getting a student to send to update
         final Student student = studentDAO.getStudentByPosition(position);
@@ -162,6 +161,7 @@ public class StudentsListActivity extends AppCompatActivity {
         intent.putExtra(getString(R.string.KEY_STUDENT), student);
         startActivity(intent);
     }
+
     @SuppressWarnings("Convert2Lambda")
     private void callDialogs(int position) {
         new AlertDialog.Builder(this)

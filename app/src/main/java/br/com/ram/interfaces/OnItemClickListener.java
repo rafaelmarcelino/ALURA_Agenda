@@ -1,7 +1,7 @@
 package br.com.ram.interfaces;
 
-import br.com.ram.adapters.StudentsRecyclerViewAdapter;
+import br.com.ram.model.Student;
 
-public interface RecyclerViewOnItemClickListener {
-    void onItemClick();
+public interface OnItemClickListener {
+    void onItemClick(Student student);
 }
