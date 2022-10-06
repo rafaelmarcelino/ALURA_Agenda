@@ -7,30 +7,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import br.com.ram.R;
 import br.com.ram.interfaces.OnItemClickListener;
 import br.com.ram.model.Student;
+import br.com.ram.model.StudentDAO;
 import br.com.ram.tools.Constants;
 
 public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter <StudentsRecyclerViewAdapter.StudentViewHolder> {
     private final List<Student> students;
-    private Context context;
-    private int layoutResource;
+    private final Context context;
+    private final int layoutResource;
     private OnItemClickListener onItemClickListener;
+    private final StudentDAO studentDAO;
 
     //Constructor
     public StudentsRecyclerViewAdapter(Context context, int layoutResource) {
-        this.students = new ArrayList<>();
+        this.studentDAO = new StudentDAO();
+        this.students = studentDAO.getStudents();
         this.context = context;
         this.layoutResource = layoutResource;
+
     }
 
     @NonNull
@@ -59,6 +62,21 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter <StudentsR
         this.students.addAll(students);
         //Notify view to update the data
         notifyDataSetChanged();
+    }
+
+    public void removeStudentFromList (int positionOfStudent){
+        //Removing student from data base
+        studentDAO.removeStudent(studentDAO.getStudentByPosition(positionOfStudent));
+        //Update data from adapter
+        updateDataFromList(studentDAO.getStudents());
+    }
+
+    public void swapPositionOfViews(int draggedStudentPosition, int targetStudentPosition) {
+        //Swap the students in the data base list
+        this.studentDAO.exchangeStudentsByPositions(draggedStudentPosition,targetStudentPosition);
+        Collections.swap(this.studentDAO.getStudents(),draggedStudentPosition,targetStudentPosition);
+        //Update data from adapter
+        updateDataFromList(this.studentDAO.getStudents());
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -90,7 +108,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter <StudentsR
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClickListener.onItemClick(StudentViewHolder.this.student);
+                    onItemClickListener.onItemClick(StudentViewHolder.this.student, getAdapterPosition());
                 }
             });
             }
