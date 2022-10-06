@@ -73,7 +73,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter <StudentsR
 
     public void swapPositionOfViews(int draggedStudentPosition, int targetStudentPosition) {
         //Swap the students in the data base list
-        this.studentDAO.exchangeStudentsByPositions(draggedStudentPosition,targetStudentPosition);
+        this.studentDAO.swapStudentsByPositions(draggedStudentPosition,targetStudentPosition);
         Collections.swap(this.studentDAO.getStudents(),draggedStudentPosition,targetStudentPosition);
         //Update data from adapter
         updateDataFromList(this.studentDAO.getStudents());

@@ -3,16 +3,13 @@ package br.com.ram.ui.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import br.com.ram.adapters.StudentsRecyclerViewAdapter;
+import br.com.ram.callbacks.CustomItemTouchHelperRecyclerView;
 import br.com.ram.interfaces.OnItemClickListener;
 import br.com.ram.tools.Constants;
 import br.com.ram.R;
@@ -99,6 +97,10 @@ public class StudentsListActivity extends AppCompatActivity {
     private void configureRecyclerView() {
         //Init adapters
         studentsRecyclerViewAdapter = new StudentsRecyclerViewAdapter(this,R.layout.cell_rv_students);
+        //Init touch helper
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new CustomItemTouchHelperRecyclerView(studentsRecyclerViewAdapter));
+        //Attach the touch helper in recycler view
+        itemTouchHelper.attachToRecyclerView(rv_students);
         //Set the adapter
         rv_students.setAdapter(studentsRecyclerViewAdapter);
     }
@@ -115,7 +117,7 @@ public class StudentsListActivity extends AppCompatActivity {
 
         studentsRecyclerViewAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(Student student) {
+            public void onItemClick(Student student, int position) {
                 openActivityToShowDataOfStudent(student);
             }
         });
