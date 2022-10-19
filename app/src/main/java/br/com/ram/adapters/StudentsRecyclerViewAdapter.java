@@ -57,6 +57,18 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter <StudentsR
         return this.students.size();
     }
 
+    public void updateDataFromListWhenRemove(List<Student> students, int position) {
+        this.students.clear();
+        this.students.addAll(students);
+        //Notify view to update the data
+        notifyItemRemoved(position);
+    }
+    public void updateDataFromListWhenReplace(List<Student> students, int fromPosition, int toPosition) {
+        this.students.clear();
+        this.students.addAll(students);
+        //Notify view to update the data
+        notifyItemMoved(fromPosition, toPosition);
+    }
     public void updateDataFromList(List<Student> students) {
         this.students.clear();
         this.students.addAll(students);
@@ -68,7 +80,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter <StudentsR
         //Removing student from data base
         studentDAO.removeStudent(studentDAO.getStudentByPosition(positionOfStudent));
         //Update data from adapter
-        updateDataFromList(studentDAO.getStudents());
+        updateDataFromListWhenRemove(studentDAO.getStudents(),positionOfStudent);
     }
 
     public void swapPositionOfViews(int draggedStudentPosition, int targetStudentPosition) {
@@ -76,7 +88,7 @@ public class StudentsRecyclerViewAdapter extends RecyclerView.Adapter <StudentsR
         this.studentDAO.swapStudentsByPositions(draggedStudentPosition,targetStudentPosition);
         Collections.swap(this.studentDAO.getStudents(),draggedStudentPosition,targetStudentPosition);
         //Update data from adapter
-        updateDataFromList(this.studentDAO.getStudents());
+        updateDataFromListWhenReplace(this.studentDAO.getStudents(),draggedStudentPosition,targetStudentPosition);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
